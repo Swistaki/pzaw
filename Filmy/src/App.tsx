@@ -7,7 +7,7 @@ import metro2035 from './zdjecia/metro2035.jpg';
 import breach from './zdjecia/breach.jpg';
 import showbiz from './zdjecia/showbiz.jpg';
 
-function Movie({ titleMovie, yearMovie, posterMovie }: Props) {
+function Movie({ titleMovie, yearMovie, posterMovie }: MovieProps) {
     return (
         <div className="movie">
             <img src={posterMovie} alt={titleMovie} />
@@ -17,7 +17,7 @@ function Movie({ titleMovie, yearMovie, posterMovie }: Props) {
     );
 }
 
-function Book({ coverBook, titleBook, yearBook, pagesBook }: Props) {
+function Book({ coverBook, titleBook, yearBook, pagesBook }: BookProps) {
     return (
         <div className="book">
             <img src={coverBook} alt={titleBook} />
@@ -28,7 +28,7 @@ function Book({ coverBook, titleBook, yearBook, pagesBook }: Props) {
     );
 }
 
-function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tracks }: Props) {
+function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tracks }: AlbumProps) {
     return (
         <div className="album">
             <img src={coverAlbum} alt={titleAlbum} />
@@ -143,20 +143,26 @@ function App() {
     );
 }
 
-interface Props {
-    titleMovie?: string;
-    yearMovie?: number;
-    posterMovie?: string;
-    coverBook?: string;
-    titleBook?: string;
-    yearBook?: number;
-    pagesBook?: number;
-    coverAlbum?: string;
-    titleAlbum?: string;
-    artistAlbum?: string;
-    genreAlbum?: string;
-    yearAlbum?: number;
-    tracks?: { title: string; duration: string }[];
+interface MovieProps {
+    titleMovie: string;
+    yearMovie: number;
+    posterMovie: string;
+}
+
+interface BookProps {
+    coverBook: string;
+    titleBook: string;
+    yearBook: number;
+    pagesBook: number;
+}
+
+interface AlbumProps {
+    coverAlbum: string;
+    titleAlbum: string;
+    artistAlbum: string;
+    genreAlbum: string;
+    yearAlbum: number;
+    tracks: { title: string; duration: string }[];
 }
 
 export default App;
