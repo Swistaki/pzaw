@@ -7,6 +7,7 @@ import metro2035 from './zdjecia/metro2035.jpg';
 import breach from './zdjecia/breach.jpg';
 import showbiz from './zdjecia/showbiz.jpg';
 
+
 function Movie({ titleMovie, yearMovie, posterMovie }: MovieProps) {
     return (
         <div className="movie">
@@ -16,6 +17,25 @@ function Movie({ titleMovie, yearMovie, posterMovie }: MovieProps) {
         </div>
     );
 }
+const movies: MovieProps[] = [
+    {
+        titleMovie: 'Prestiż',
+        yearMovie: 2006,
+        posterMovie: prestiz,
+    },
+    {
+        titleMovie: 'Spirited Away: W krainie bogów',
+        yearMovie: 2001,
+        posterMovie: spirited,
+    },
+    {
+        titleMovie: 'Incepcja',
+        yearMovie: 2010,
+        posterMovie: incepcja,
+    },
+];
+
+
 
 function Book({ coverBook, titleBook, yearBook, pagesBook }: BookProps) {
     return (
@@ -27,6 +47,28 @@ function Book({ coverBook, titleBook, yearBook, pagesBook }: BookProps) {
         </div>
     );
 }
+const books: BookProps[] = [
+    {
+        coverBook: metro2033,
+        titleBook: 'Metro 2033',
+        yearBook: 2005,
+        pagesBook: 577,
+    },
+    {
+        coverBook: metro2034,
+        titleBook: 'Metro 2034',
+        yearBook: 2009,
+        pagesBook: 384,
+    },
+    {
+        coverBook: metro2035,
+        titleBook: 'Metro 2035',
+        yearBook: 2015,
+        pagesBook: 546,
+    },
+];
+
+
 
 function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tracks }: AlbumProps) {
     return (
@@ -46,98 +88,73 @@ function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tra
         </div>
     );
 }
+const albums: AlbumProps[] = [
+    {
+        coverAlbum: breach,
+        titleAlbum: 'Breach',
+        artistAlbum: 'Twenty One Pilots',
+        genreAlbum: 'Rock alternatywny, pop rock',
+        yearAlbum: 2025,
+        tracks: [
+            { title: 'City Walls', duration: '5:22' },
+            { title: 'Rawfear', duration: '3:22' },
+            { title: 'Drum Show', duration: '3:23' },
+            { title: 'Garbage', duration: '3:16' },
+            { title: 'The Contract', duration: '3:45' },
+            { title: 'Downstairs', duration: '5:26' },
+            { title: 'Robot Voices', duration: '3:57' },
+            { title: 'Center Mass', duration: '3:48' },
+            { title: 'Cottonwood', duration: '3:08' },
+            { title: 'One Way', duration: '2:43' },
+            { title: 'Days Lie Dormant', duration: '3:26' },
+            { title: 'Tally', duration: '3:32' },
+            { title: 'Intentions', duration: '2:15' },
+        ],
+    },
+    {
+        coverAlbum: showbiz,
+        titleAlbum: 'Showbiz',
+        artistAlbum: 'Muse',
+        genreAlbum: 'Rock alternatywny, indie rock',
+        yearAlbum: 1999,
+        tracks: [
+            { title: 'Sunburn', duration: '3:54' },
+            { title: 'Muscle Museum', duration: '4:23' },
+            { title: 'Fillip', duration: '4:01' },
+            { title: 'Falling Down', duration: '4:33' },
+            { title: 'Cave', duration: '4:46' },
+            { title: 'Showbiz', duration: '5:16' },
+            { title: 'Unintended', duration: '3:57' },
+            { title: 'Uno', duration: '3:37' },
+            { title: 'Sober', duration: '4:04' },
+            { title: 'Escape', duration: '3:31' },
+            { title: 'Overdue', duration: '2:26' },
+            { title: "Hate This and I'll Love You", duration: '5:09' },
+        ],
+    },
+];
+
+
 
 function App() {
     return (
         <div>
             <div>
-                <Movie
-                    titleMovie="Prestiż"
-                    yearMovie={2006}
-                    posterMovie={prestiz}
-                />
-
-                <Movie
-                    titleMovie="Spirited Away: W krainie bogów"
-                    yearMovie={2001}
-                    posterMovie={spirited}
-                />
-
-                <Movie
-                    titleMovie="Incepcja"
-                    yearMovie={2010}
-                    posterMovie={incepcja}
-                />
+                {movies.map((movie) => (
+                    <Movie key={movie.titleMovie} {...movie} />
+                ))}
             </div>
 
             <div>
-                <Book
-                    coverBook={metro2033}
-                    titleBook="Metro 2033"
-                    yearBook={2005}
-                    pagesBook={577}
-                />
-
-                <Book
-                    coverBook={metro2034}
-                    titleBook="Metro 2034"
-                    yearBook={2009}
-                    pagesBook={384}
-                />
-
-                <Book
-                    coverBook={metro2035}
-                    titleBook="Metro 2035"
-                    yearBook={2015}
-                    pagesBook={546}
-                />
+                {books.map((book) => (
+                    <Book key={book.titleBook} {...book} />
+                ))}
             </div>
 
             <div>
-                <Album
-                    coverAlbum={breach}
-                    titleAlbum="Breach"
-                    artistAlbum="Twenty One Pilots"
-                    genreAlbum="Rock alternatywny, pop rock"
-                    yearAlbum={2025}
-                    tracks={[
-                        { title: 'City Walls', duration: '5:22' },
-                        { title: 'Rawfear', duration: '3:22' },
-                        { title: 'Drum Show', duration: '3:23' },
-                        { title: 'Garbage', duration: '3:16' },
-                        { title: 'The Contract', duration: '3:45' },
-                        { title: 'Downstairs', duration: '5:26' },
-                        { title: 'Robot Voices', duration: '3:57' },
-                        { title: 'Center Mass', duration: '3:48' },
-                        { title: 'Cottonwood', duration: '3:08' },
-                        { title: 'One Way', duration: '2:43' },
-                        { title: 'Days Lie Dormant', duration: '3:26' },
-                        { title: 'Tally', duration: '3:32' },
-                        { title: 'Intentions', duration: '2:15' },
-                    ]}
-                />
-
-                <Album
-                    coverAlbum={showbiz}
-                    titleAlbum="Showbiz"
-                    artistAlbum="Muse"
-                    genreAlbum="Rock alternatywny, indie rock"
-                    yearAlbum={1999}
-                    tracks={[
-                        { title: 'Sunburn', duration: '3:54' },
-                        { title: 'Muscle Museum', duration: '4:23' },
-                        { title: 'Fillip', duration: '4:01' },
-                        { title: 'Falling Down', duration: '4:33' },
-                        { title: 'Cave', duration: '4:46' },
-                        { title: 'Showbiz', duration: '5:16' },
-                        { title: 'Unintended', duration: '3:57' },
-                        { title: 'Uno', duration: '3:37' },
-                        { title: 'Sober', duration: '4:04' },
-                        { title: 'Escape', duration: '3:31' },
-                        { title: 'Overdue', duration: '2:26' },
-                        { title: "Hate This and I'll Love You", duration: '5:09' },
-                    ]}
-                />
+                {albums.map((album) => (
+                    <Album key={album.titleAlbum} {...album} />
+                ))}
             </div>
         </div>
     );
