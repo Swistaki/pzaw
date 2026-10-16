@@ -1,3 +1,12 @@
+import prestiz from './zdjecia/prestiz.jpg';
+import incepcja from './zdjecia/incepcja.jpg';
+import spirited from './zdjecia/spirited.jpg';
+import metro2033 from './zdjecia/metro2033.jpg';
+import metro2034 from './zdjecia/metro2034.jpg';
+import metro2035 from './zdjecia/metro2035.jpg';
+import breach from './zdjecia/breach.jpg';
+import showbiz from './zdjecia/showbiz.jpg';
+
 function Movie({ titleMovie, yearMovie, posterMovie }: Props) {
     return (
         <div className="movie">
@@ -19,7 +28,7 @@ function Book({ coverBook, titleBook, yearBook, pagesBook }: Props) {
     );
 }
 
-function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum }: Props) {
+function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tracks }: Props) {
     return (
         <div className="album">
             <img src={coverAlbum} alt={titleAlbum} />
@@ -27,119 +36,127 @@ function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum }: P
             <p>Wykonawca: {artistAlbum}</p>
             <p>Gatunek: {genreAlbum}</p>
             <p>Rok wydania: {yearAlbum}</p>
+            {tracks && (
+                <ol>
+                    {tracks.map(({ title, duration }) => (
+                        <li key={title}>{title} - {duration}</li>
+                    ))}
+                </ol>
+            )}
         </div>
     );
 }
 
 function App() {
     return (
-        <>
+        <div>
             <div>
                 <Movie
                     titleMovie="Prestiż"
-                    yearMovie="2006"
-                    posterMovie="zdjecia/prestiz.jpg"
+                    yearMovie={2006}
+                    posterMovie={prestiz}
                 />
 
                 <Movie
                     titleMovie="Spirited Away: W krainie bogów"
-                    yearMovie="2001"
-                    posterMovie="zdjecia/spirited.jpg"
+                    yearMovie={2001}
+                    posterMovie={spirited}
                 />
 
                 <Movie
                     titleMovie="Incepcja"
-                    yearMovie="2010"
-                    posterMovie="zdjecia/incepcja.jpg"
+                    yearMovie={2010}
+                    posterMovie={incepcja}
                 />
             </div>
 
             <div>
                 <Book
-                    coverBook="/zdjecia/metro2033.jpg"
+                    coverBook={metro2033}
                     titleBook="Metro 2033"
-                    yearBook="2005"
-                    pagesBook="577"
+                    yearBook={2005}
+                    pagesBook={577}
                 />
 
                 <Book
-                    coverBook="/zdjecia/metro2034.jpg"
+                    coverBook={metro2034}
                     titleBook="Metro 2034"
-                    yearBook="2009"
-                    pagesBook="384"
+                    yearBook={2009}
+                    pagesBook={384}
                 />
 
                 <Book
-                    coverBook="/zdjecia/metro2035.jpg"
+                    coverBook={metro2035}
                     titleBook="Metro 2035"
-                    yearBook="2015"
-                    pagesBook="546"
+                    yearBook={2015}
+                    pagesBook={546}
                 />
             </div>
 
             <div>
                 <Album
-                    coverAlbum="/zdjecia/breach.jpg"
+                    coverAlbum={breach}
                     titleAlbum="Breach"
                     artistAlbum="Twenty One Pilots"
                     genreAlbum="Rock alternatywny, pop rock"
-                    yearAlbum="2025"
+                    yearAlbum={2025}
+                    tracks={[
+                        { title: 'City Walls', duration: '5:22' },
+                        { title: 'Rawfear', duration: '3:22' },
+                        { title: 'Drum Show', duration: '3:23' },
+                        { title: 'Garbage', duration: '3:16' },
+                        { title: 'The Contract', duration: '3:45' },
+                        { title: 'Downstairs', duration: '5:26' },
+                        { title: 'Robot Voices', duration: '3:57' },
+                        { title: 'Center Mass', duration: '3:48' },
+                        { title: 'Cottonwood', duration: '3:08' },
+                        { title: 'One Way', duration: '2:43' },
+                        { title: 'Days Lie Dormant', duration: '3:26' },
+                        { title: 'Tally', duration: '3:32' },
+                        { title: 'Intentions', duration: '2:15' },
+                    ]}
                 />
-                <ol>
-                    <li>City Walls - 5:22</li>
-                    <li>Rawfear - 3:22</li>
-                    <li>Drum Show - 3:23</li>
-                    <li>Garbage - 3:16</li>
-                    <li>The Contract - 3:45</li>
-                    <li>Downstairs - 5:26</li>
-                    <li>Robot Voices - 3:57</li>
-                    <li>Center Mass - 3:48</li>
-                    <li>Cottonwood - 3:08</li>
-                    <li>One Way - 2:43</li>
-                    <li>Days Lie Dormant - 3:26</li>
-                    <li>Tally - 3:32</li>
-                    <li>Intentions - 2:15</li>
-                </ol>
 
                 <Album
-                    coverAlbum="/zdjecia/showbiz.jpg"
+                    coverAlbum={showbiz}
                     titleAlbum="Showbiz"
                     artistAlbum="Muse"
                     genreAlbum="Rock alternatywny, indie rock"
-                    yearAlbum="1999"
+                    yearAlbum={1999}
+                    tracks={[
+                        { title: 'Sunburn', duration: '3:54' },
+                        { title: 'Muscle Museum', duration: '4:23' },
+                        { title: 'Fillip', duration: '4:01' },
+                        { title: 'Falling Down', duration: '4:33' },
+                        { title: 'Cave', duration: '4:46' },
+                        { title: 'Showbiz', duration: '5:16' },
+                        { title: 'Unintended', duration: '3:57' },
+                        { title: 'Uno', duration: '3:37' },
+                        { title: 'Sober', duration: '4:04' },
+                        { title: 'Escape', duration: '3:31' },
+                        { title: 'Overdue', duration: '2:26' },
+                        { title: "Hate This and I'll Love You", duration: '5:09' },
+                    ]}
                 />
-                <ol>
-                    <li>Sunburn - 3:54</li>
-                    <li>Muscle Museum - 4:23</li>
-                    <li>Fillip - 4:01</li>
-                    <li>Falling Down - 4:33</li>
-                    <li>Cave - 4:46</li>
-                    <li>Showbiz - 5:16</li>
-                    <li>Unintended - 3:57</li>
-                    <li>Uno - 3:37</li>
-                    <li>Sober - 4:04</li>
-                    <li>Escape - 3:31</li>
-                    <li>Overdue - 2:26</li>
-                    <li>Hate This and I'll Love You - 5:09</li>
-                </ol>
             </div>
-        </>
+        </div>
     );
 }
 
 interface Props {
     titleMovie?: string;
-    yearMovie?: string;
+    yearMovie?: number;
     posterMovie?: string;
     coverBook?: string;
     titleBook?: string;
-    yearBook?: string;
-    pagesBook?: string;
+    yearBook?: number;
+    pagesBook?: number;
     coverAlbum?: string;
     titleAlbum?: string;
     artistAlbum?: string;
     genreAlbum?: string;
-    yearAlbum?: string;
+    yearAlbum?: number;
+    tracks?: { title: string; duration: string }[];
 }
 
 export default App;
