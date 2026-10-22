@@ -8,12 +8,13 @@ import breach from './zdjecia/breach.jpg';
 import showbiz from './zdjecia/showbiz.jpg';
 
 
-function Movie({ titleMovie, yearMovie, posterMovie }: MovieProps) {
+function Movie({ titleMovie, yearMovie, posterMovie, rating }: MovieProps) {
     return (
         <div className="movie">
             <img src={posterMovie} alt={titleMovie} />
             <p>{titleMovie}</p>
             <p>Rok produkcji: {yearMovie}</p>
+            <p>Ocena: {rating}/10</p>
         </div>
     );
 }
@@ -22,18 +23,24 @@ const movies: MovieProps[] = [
         titleMovie: 'Prestiż',
         yearMovie: 2006,
         posterMovie: prestiz,
+        rating: 9,
     },
     {
         titleMovie: 'Spirited Away: W krainie bogów',
         yearMovie: 2001,
         posterMovie: spirited,
+        rating: 7,
     },
     {
         titleMovie: 'Incepcja',
-        yearMovie: 2010,
+        yearMovie: 2011, //2010, zmienione aby pasowało do polecenia
         posterMovie: incepcja,
+        rating: 10,
     },
 ];
+movies.sort((a, b) => a.titleMovie.localeCompare(b.titleMovie, 'pl'));
+
+const moviesAfter2010 = movies.filter((movie) => movie.yearMovie > 2010);
 
 
 
@@ -67,6 +74,9 @@ const books: BookProps[] = [
         pagesBook: 546,
     },
 ];
+books.sort((a, b) => a.titleBook.localeCompare(b.titleBook, 'pl'));
+
+const booksByNewestFirst = [...books].sort((a, b) => b.yearBook - a.yearBook);
 
 
 
@@ -133,37 +143,60 @@ const albums: AlbumProps[] = [
         ],
     },
 ];
+albums.sort((a, b) => a.titleAlbum.localeCompare(b.titleAlbum, 'pl'));
+
+const albumWithMostTracks = albums.reduce((mostTracks, album) =>
+    album.tracks.length > mostTracks.tracks.length ? album : mostTracks,
+);
 
 
 
 function App() {
     return (
-        <div>
-            <div>
+        <main>
+            <section>
+                <h2>Filmy</h2>
                 {movies.map((movie) => (
                     <Movie key={movie.titleMovie} {...movie} />
                 ))}
-            </div>
+            </section>
 
-            <div>
-                {books.map((book) => (
+            <section>
+                <h2>Filmy wydane po 2010 roku</h2>
+                {moviesAfter2010.map((movie) => (
+                    <Movie key={movie.titleMovie} {...movie} />
+                ))}
+            </section>
+
+            <section>
+                <h2>Książki</h2>
+                {booksByNewestFirst.map((book) => (
                     <Book key={book.titleBook} {...book} />
                 ))}
-            </div>
+            </section>
 
-            <div>
+            <section>
+                <h2>Albumy</h2>
                 {albums.map((album) => (
                     <Album key={album.titleAlbum} {...album} />
                 ))}
-            </div>
-        </div>
+            </section>
+
+            <section>
+                <h2>Album z największą liczbą utworów</h2>
+                <Album key={albumWithMostTracks.titleAlbum} {...albumWithMostTracks} />
+            </section>
+        </main>
     );
 }
+
+type Rating = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 interface MovieProps {
     titleMovie: string;
     yearMovie: number;
-    posterMovie: string;
+    posterMovie?: string;
+    rating: Rating;
 }
 
 interface BookProps {
