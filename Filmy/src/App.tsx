@@ -1,17 +1,18 @@
 import prestiz from './zdjecia/prestiz.jpg';
 import incepcja from './zdjecia/incepcja.jpg';
-import spirited from './zdjecia/spirited.jpg';
+import spirited from './zdjecia/spirited.jpg'; 
 import metro2033 from './zdjecia/metro2033.jpg';
 import metro2034 from './zdjecia/metro2034.jpg';
 import metro2035 from './zdjecia/metro2035.jpg';
 import breach from './zdjecia/breach.jpg';
 import showbiz from './zdjecia/showbiz.jpg';
 import { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function Movie({ titleMovie, yearMovie, posterMovie, rating }: MovieProps) {
     return (
-        <div className="movie">
+        <div className="col">
             <img src={posterMovie} alt={titleMovie} />
             <p>{titleMovie}</p>
             {rating >= 8 && <p>Polecany</p>}
@@ -48,7 +49,7 @@ const moviesAfter2010 = movies.filter((movie) => movie.yearMovie > 2010);
 
 function Book({ coverBook, titleBook, yearBook, pagesBook }: BookProps) {
     return (
-        <div className="book">
+        <div className="col">
             <img src={coverBook} alt={titleBook} />
             <p>{titleBook}</p>
             {yearBook < 2000 && <p>Klasyka</p>}
@@ -85,22 +86,35 @@ const booksByNewestFirst = [...books].sort((a, b) => b.yearBook - a.yearBook);
 
 function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tracks }: AlbumProps) {
     return (
-        <div className="album">
+        <div className="col">
             <img src={coverAlbum} alt={titleAlbum} />
             <p>{titleAlbum}</p>
             <p>Wykonawca: {artistAlbum}</p>
             <p>Gatunek: {genreAlbum}</p>
             <p>Rok wydania: {yearAlbum}</p>
             {tracks.length > 0 ? 
-                <ol>
-                    {tracks.map(({ title, duration }) => (
-                        <li key={title}>{title} - {duration}</li>
+                <table className="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Numer</th>
+                            <th scope="col">Utwór</th>
+                            <th scope="col" className="text-end">Czas trwania</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {tracks.map(({ title, duration }, index) => (
+                        <tr key={title}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{title}</td>
+                            <td className="text-end">{duration}</td>
+                        </tr>
                     ))}
-                </ol>
+                    </tbody>
+                </table>
              : 
-                <p>Brak utworów</p>
+                <div className="alert alert-info" role="alert">Brak utworów!</div>
             }
-        </div>
+        </div>  
     );
 }
 const albums: AlbumProps[] = [
@@ -147,6 +161,16 @@ const albums: AlbumProps[] = [
             { title: "Hate This and I'll Love You", duration: '5:09' },
         ],
     },
+    {
+        coverAlbum: showbiz,
+        titleAlbum: 'Showbiz (bez utworów)',
+        artistAlbum: 'Muse (gdyby nie tworzyli muzyki)',
+        genreAlbum: 'Rock alternatywny, indie rock (skąd wiadomo skoro nie ma żadnego utworu)',
+        yearAlbum: 1999,
+        tracks: [
+            // faktycznie nie ma utworów
+        ]
+    }
 ];
 albums.sort((a, b) => a.titleAlbum.localeCompare(b.titleAlbum, 'pl'));
 
@@ -164,53 +188,65 @@ function App() {
     const [isAlbumWithMostTracksOpen, setIsAlbumWithMostTracksOpen] = useState(true);
 
     return (
-        <main>
-            <section>
+        <main className="container">
+            <section className='card'>
                 <h2 onClick={() => setIsMovieOpen(!isMovieOpen)}>
                 {isMovieOpen ? "▸" : "▾"} Filmy
                 </h2>
 
-                {isMovieOpen ? "" : movies.map((movie) => (
-                    <Movie key={movie.titleMovie} {...movie} />
-                ))}
+                {!isMovieOpen && (
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                        {movies.map((movie) => <Movie key={movie.titleMovie} {...movie} />)}
+                    </div>
+                )}
             </section>
 
-            <section>
+            <section className='card'>
                 <h2 onClick={() => setIsMoviesAfter2010Open(!isMoviesAfter2010Open)}>
                 {isMoviesAfter2010Open ? "▸" : "▾"} Filmy wydane po 2010 roku
                 </h2>
 
-                {isMoviesAfter2010Open ? "" : moviesAfter2010.map((movie) => (
-                    <Movie key={movie.titleMovie} {...movie} />
-                ))}
+                {!isMoviesAfter2010Open && (
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                        {moviesAfter2010.map((movie) => <Movie key={movie.titleMovie} {...movie} />)}
+                    </div>
+                )}
             </section>
 
-            <section>
+            <section className='card'>
                 <h2 onClick={() => setIsBookOpen(!isBookOpen)}>
                 {isBookOpen ? "▸" : "▾"} Książki
                 </h2>
 
-                {isBookOpen ? "" : booksByNewestFirst.map((book) => (
-                    <Book key={book.titleBook} {...book} />
-                ))}
+                {!isBookOpen && (
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                        {booksByNewestFirst.map((book) => <Book key={book.titleBook} {...book} />)}
+                    </div>
+                )}
             </section>
 
-            <section>
+            <section className='card'>
                 <h2 onClick={() => setIsAlbumOpen(!isAlbumOpen)}>
                 {isAlbumOpen ? "▸" : "▾"} Albumy
                 </h2>
                 
-                {isAlbumOpen ? "" : albums.map((album) => (
-                    <Album key={album.titleAlbum} {...album} />
-                ))}
+                {!isAlbumOpen && (
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                        {albums.map((album) => <Album key={album.titleAlbum} {...album} />)}
+                    </div>
+                )}
             </section>
 
-            <section>
+            <section className='card'>
                 <h2 onClick={() => setIsAlbumWithMostTracksOpen(!isAlbumWithMostTracksOpen)}>
                 {isAlbumWithMostTracksOpen ? "▸" : "▾"} Album z największą liczbą utworów
                 </h2>
 
-                {isAlbumWithMostTracksOpen ? "" : <Album key={albumWithMostTracks.titleAlbum} {...albumWithMostTracks} />}
+                {!isAlbumWithMostTracksOpen && (
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                        <Album key={albumWithMostTracks.titleAlbum} {...albumWithMostTracks} />
+                    </div>
+                )}
             </section>
         </main>
     );
