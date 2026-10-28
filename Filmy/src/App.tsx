@@ -90,6 +90,10 @@ const booksByNewestFirst = [...books].sort((a, b) => b.yearBook - a.yearBook);
 
 
 function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tracks }: AlbumProps) {
+    const handleSongClick = (title: string) => {
+    console.log("Wybrano utwór:", title, "z", titleAlbum);
+    };
+
     return (
         <div className="card">
             <img className="card-img-top" src={coverAlbum} alt={titleAlbum} />
@@ -109,7 +113,7 @@ function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tra
                         </thead>
                         <tbody>
                         {tracks.map(({ title, duration }, index) => (
-                            <tr key={title}>
+                            <tr key={title} onClick={() => handleSongClick(title)}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{title}</td>
                                 <td className="text-end">{duration}</td>
@@ -124,6 +128,8 @@ function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tra
         </div>
     );
 }
+
+
 const albums: AlbumProps[] = [
     {
         coverAlbum: breach,
