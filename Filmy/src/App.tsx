@@ -12,12 +12,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Movie({ titleMovie, yearMovie, posterMovie, rating }: MovieProps) {
     return (
-        <div className="col">
-            <img src={posterMovie} alt={titleMovie} />
-            <p>{titleMovie}</p>
-            {rating >= 8 && <p>Polecany</p>}
-            <p>Rok produkcji: {yearMovie}</p>
-            <p>Ocena: {rating}/10</p>
+        <div className="card" onClick={() => console.log(`Wybrano film: ${titleMovie}`)}>
+            <img className="card-img-top" src={posterMovie} alt={titleMovie} />
+            <div className="card-body">
+                <h5 className="card-title">{titleMovie}</h5>
+                {rating >= 8 && <p>Polecany</p>}
+                <p>Rok produkcji: {yearMovie}</p>
+                <button className="btn btn-primary"onClick={() => console.log(`Pokaż szczegóły dla ${titleMovie}`)}>Pokaż szczegóły</button>
+                <p>Ocena: {rating}/10</p>
+            </div>
         </div>
     );
 }
@@ -49,12 +52,14 @@ const moviesAfter2010 = movies.filter((movie) => movie.yearMovie > 2010);
 
 function Book({ coverBook, titleBook, yearBook, pagesBook }: BookProps) {
     return (
-        <div className="col">
-            <img src={coverBook} alt={titleBook} />
-            <p>{titleBook}</p>
-            {yearBook < 2000 && <p>Klasyka</p>}
-            <p>Rok wydania: {yearBook}</p>
-            <p>Liczba stron: {pagesBook}</p>
+        <div className="card">
+            <img className="card-img-top" src={coverBook} alt={titleBook} />
+            <div className="card-body">
+                <h5 className="card-title">{titleBook}</h5>
+                {yearBook < 2000 && <p>Klasyka</p>}
+                <p>Rok wydania: {yearBook}</p>
+                <p>Liczba stron: {pagesBook}</p>
+            </div>
         </div>
     );
 }
@@ -86,35 +91,37 @@ const booksByNewestFirst = [...books].sort((a, b) => b.yearBook - a.yearBook);
 
 function Album({ coverAlbum, titleAlbum, artistAlbum, genreAlbum, yearAlbum, tracks }: AlbumProps) {
     return (
-        <div className="col">
-            <img src={coverAlbum} alt={titleAlbum} />
-            <p>{titleAlbum}</p>
-            <p>Wykonawca: {artistAlbum}</p>
-            <p>Gatunek: {genreAlbum}</p>
-            <p>Rok wydania: {yearAlbum}</p>
-            {tracks.length > 0 ? 
-                <table className="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Numer</th>
-                            <th scope="col">Utwór</th>
-                            <th scope="col" className="text-end">Czas trwania</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {tracks.map(({ title, duration }, index) => (
-                        <tr key={title}>
-                            <th scope="row">{index + 1}</th>
-                            <td>{title}</td>
-                            <td className="text-end">{duration}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-             : 
-                <div className="alert alert-info" role="alert">Brak utworów!</div>
-            }
-        </div>  
+        <div className="card">
+            <img className="card-img-top" src={coverAlbum} alt={titleAlbum} />
+            <div className="card-body">
+                <h5 className="card-title">{titleAlbum}</h5>
+                <p>Wykonawca: {artistAlbum}</p>
+                <p>Gatunek: {genreAlbum}</p>
+                <p>Rok wydania: {yearAlbum}</p>
+                {tracks.length > 0 ?
+                    <table className="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Numer</th>
+                                <th scope="col">Utwór</th>
+                                <th scope="col" className="text-end">Czas trwania</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {tracks.map(({ title, duration }, index) => (
+                            <tr key={title}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{title}</td>
+                                <td className="text-end">{duration}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                :
+                    <div className="alert alert-info" role="alert">Brak utworów!</div>
+                }
+            </div>
+        </div>
     );
 }
 const albums: AlbumProps[] = [
@@ -189,7 +196,7 @@ function App() {
 
     return (
         <main className="container">
-            <section className='card'>
+            <section>
                 <h2 onClick={() => setIsMovieOpen(!isMovieOpen)}>
                 {isMovieOpen ? "▸" : "▾"} Filmy
                 </h2>
@@ -201,7 +208,7 @@ function App() {
                 )}
             </section>
 
-            <section className='card'>
+            <section>
                 <h2 onClick={() => setIsMoviesAfter2010Open(!isMoviesAfter2010Open)}>
                 {isMoviesAfter2010Open ? "▸" : "▾"} Filmy wydane po 2010 roku
                 </h2>
@@ -213,7 +220,7 @@ function App() {
                 )}
             </section>
 
-            <section className='card'>
+            <section>
                 <h2 onClick={() => setIsBookOpen(!isBookOpen)}>
                 {isBookOpen ? "▸" : "▾"} Książki
                 </h2>
@@ -225,7 +232,7 @@ function App() {
                 )}
             </section>
 
-            <section className='card'>
+            <section>
                 <h2 onClick={() => setIsAlbumOpen(!isAlbumOpen)}>
                 {isAlbumOpen ? "▸" : "▾"} Albumy
                 </h2>
@@ -237,7 +244,7 @@ function App() {
                 )}
             </section>
 
-            <section className='card'>
+            <section>
                 <h2 onClick={() => setIsAlbumWithMostTracksOpen(!isAlbumWithMostTracksOpen)}>
                 {isAlbumWithMostTracksOpen ? "▸" : "▾"} Album z największą liczbą utworów
                 </h2>
