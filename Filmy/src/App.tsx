@@ -200,6 +200,27 @@ function App() {
     const [isAlbumOpen, setIsAlbumOpen] = useState(true);
     const [isAlbumWithMostTracksOpen, setIsAlbumWithMostTracksOpen] = useState(true);
 
+    const [textIdMovie, setTextIdMovie] = useState<string>("");
+    const handleMovieChange = (text: string) => {
+        setTextIdMovie(text);
+        console.log(text);
+    }
+    const [textIdMoviesAfter2010, setTextIdMoviesAfter2010] = useState<string>("");
+    const handleMoviesAfter2010Change = (text: string) => {
+        setTextIdMoviesAfter2010(text);
+        console.log(text);
+    }
+    const [textIdBook, setTextIdBook] = useState<string>("");
+    const handleBookChange = (text: string) => {
+        setTextIdBook(text);
+        console.log(text);
+    }
+    const [textIdAlbum, setTextIdAlbum] = useState<string>("");
+    const handleAlbumChange = (text: string) => {
+        setTextIdAlbum(text);
+        console.log(text);
+    }
+
     return (
         <main className="container">
             <section>
@@ -208,8 +229,20 @@ function App() {
                 </h2>
 
                 {!isMovieOpen && (
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                        {movies.map((movie) => <Movie key={movie.titleMovie} {...movie} />)}
+                    <div>
+                        <input onChange={(event) => handleMovieChange(event.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Wpisz nazwe filmu"
+                            id="movie-search"
+                            value={textIdMovie} 
+                        />
+                        <br></br>
+                        <h3>{textIdMovie}</h3>
+                        <br></br>
+                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                            {movies.map((movie) => <Movie key={movie.titleMovie} {...movie} />)}
+                        </div>
                     </div>
                 )}
             </section>
@@ -220,8 +253,20 @@ function App() {
                 </h2>
 
                 {!isMoviesAfter2010Open && (
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                        {moviesAfter2010.map((movie) => <Movie key={movie.titleMovie} {...movie} />)}
+                    <div>
+                        <input onChange={(event) => handleMoviesAfter2010Change(event.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Wpisz nazwe filmu"
+                            id="movie10-search"
+                            value={textIdMoviesAfter2010} 
+                        />
+                        <br></br>
+                        <h3>{textIdMoviesAfter2010}</h3>
+                        <br></br>
+                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                            {moviesAfter2010.map((movie) => <Movie key={movie.titleMovie} {...movie} />)}
+                        </div>
                     </div>
                 )}
             </section>
@@ -232,8 +277,20 @@ function App() {
                 </h2>
 
                 {!isBookOpen && (
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                        {booksByNewestFirst.map((book) => <Book key={book.titleBook} {...book} />)}
+                    <div>
+                        <input onChange={(event) => handleBookChange(event.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Wpisz nazwe książki"
+                            id="book-search"
+                            value={textIdBook} 
+                        />
+                        <br></br>
+                        <h3>{textIdBook}</h3>
+                        <br></br>
+                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                            {booksByNewestFirst.map((book) => <Book key={book.titleBook} {...book} />)}
+                        </div>
                     </div>
                 )}
             </section>
@@ -244,8 +301,20 @@ function App() {
                 </h2>
                 
                 {!isAlbumOpen && (
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                        {albums.map((album) => <Album key={album.titleAlbum} {...album} />)}
+                    <div>
+                        <input onChange={(event) => handleAlbumChange(event.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Wpisz nazwe albumu"
+                            id="album-search"
+                            value={textIdAlbum}
+                        />
+                        <br></br>
+                        <h3>{textIdAlbum}</h3>
+                        <br></br>
+                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                            {albums.map((album) => <Album key={album.titleAlbum} {...album} />)}
+                        </div>
                     </div>
                 )}
             </section>
