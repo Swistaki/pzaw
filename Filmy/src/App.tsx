@@ -205,6 +205,8 @@ function App() {
         setTextIdMovie(text);
         console.log(text);
     }
+    const filteredMovies = movies.filter((movie) => movie.titleMovie.toLocaleLowerCase('pl').includes(textIdMovie.toLocaleLowerCase('pl')));
+
     const [textIdMoviesAfter2010, setTextIdMoviesAfter2010] = useState<string>("");
     const handleMoviesAfter2010Change = (text: string) => {
         setTextIdMoviesAfter2010(text);
@@ -241,7 +243,11 @@ function App() {
                         <h3>{textIdMovie}</h3>
                         <br></br>
                         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                            {movies.map((movie) => <Movie key={movie.titleMovie} {...movie} />)}
+                            {filteredMovies.length > 0 ? (
+                            filteredMovies.map((movie) => <Movie key={movie.titleMovie} {...movie} />))
+                            : (
+                                <p>Nie znaleziono filmów</p>
+                            )}
                         </div>
                     </div>
                 )}
